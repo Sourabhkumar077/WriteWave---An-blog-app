@@ -1,5 +1,5 @@
 
-import React, { useId } from 'react'
+import React, { forwardRef, useId } from 'react'
 
 const Input = React.forwardRef(function Input({
     label,
@@ -25,4 +25,4 @@ const Input = React.forwardRef(function Input({
     )
 })
 
-export default Input;
+export default forwardRef(Input);
