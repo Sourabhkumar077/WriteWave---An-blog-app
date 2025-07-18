@@ -53,7 +53,7 @@ export class Service {
             }
            )
         } catch (error) {
-            console.log("appwriter service :: updatePost :: Error ",error);
+            console.log("appwrite service :: updatePost :: Error ",error);
             
         }
     }
@@ -117,7 +117,7 @@ export class Service {
     async deleteFile(fileId){
         try{
             return this.bucket.deleteFile(config.appwriteBucketId,fileId);
-            return true;
+            
         }catch(err){
             console.log("appwriter service :: Delete File:: Error ",err);
             return false;
