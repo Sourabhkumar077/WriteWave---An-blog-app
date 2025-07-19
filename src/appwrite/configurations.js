@@ -1,20 +1,21 @@
 import config from "../config/config";
 import { Client, Databases, Storage, Query, ID } from "appwrite";
 
-export class Service {
-    client = new Client();
+class Service {
+    client;
     databases;
     bucket;
 
     constructor() {
-        console.log(config.appwriteUrl);
-        
-        this.client
-            .setEndpoint(config.appwriteUrl)
-            .setProject(config.appwriteProjectId);
+        if (config.appwriteUrl && config.appwriteProjectId) {
+            this.client = new Client();
+            this.client
+                .setEndpoint(config.appwriteUrl)
+                .setProject(config.appwriteProjectId);
 
-        this.databases = new Databases(this.client);
-        this.bucket = new Storage(this.client)
+            this.databases = new Databases(this.client);
+            this.bucket = new Storage(this.client);
+        }
     }
 
     async createPost({title,slug,content,featuredImage,status,userId}){
@@ -65,7 +66,7 @@ export class Service {
             config.appwriteCollectionId,
             slug
            )
-           return true;
+           
         } catch (error) {
             console.log("appwriter service :: Delete :: error",error);
             return false;
@@ -89,9 +90,9 @@ export class Service {
     async getPosts(queries = [Query.equal("status", "active")]){
         try {
            return await this.databases.listDocuments(
-            config.appwriteDatabaseId,
-            config.appwriteCollectionId,
-            queries
+                config.appwriteDatabaseId,
+                config.appwriteCollectionId,
+                queries
            )
         } catch (error) {
             console.log("appwriter service :: GetPosts:: Error ",error);
@@ -133,3 +134,6 @@ export class Service {
         }
     }
 }
+
+const service = new Service()
+export default service

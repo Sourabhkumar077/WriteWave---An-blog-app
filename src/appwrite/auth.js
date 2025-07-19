@@ -24,8 +24,11 @@ export class AuthService {
         try {
             const userAccount = await this.account.create(ID.unique(), email, password, name);
             if (userAccount) {
-                // call another function for login also
-                return this.login({ email, password });
+                const currentUser = await this.getCurrentUser();
+                if (!currentUser) {
+                    return this.login({ email, password });
+                }
+                return userAccount; // Session already active
             } else {
                 return userAccount;
             }
@@ -33,6 +36,7 @@ export class AuthService {
             throw error;
         }
     }
+    
 
     async login({ email, password }) {
         if (!this.account) {

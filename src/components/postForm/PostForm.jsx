@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, Inputm, RTE, Select } from '../index'
+import { Button, Input, RTE, Select } from '../index'
 import { useNavigate } from 'react-router-dom'
-import appwriteService from "../../appwrite/config";
+import appwriteService from "../../appwrite/configurations";
 import { useSelector } from "react-redux";
 
 
@@ -17,7 +17,7 @@ function PostForm({ post }) {
   })
 
   const navigate = useNavigate();
-  const userData = useSelector(state => state.user.userData);
+  const userData = useSelector(state => state.auth.userData);
 
   const submit = async (data) => {
     if (post) {

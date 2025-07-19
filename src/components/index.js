@@ -8,6 +8,9 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 import PostForm from "./PostForm/PostForm";
 import PostCard from "./PostCard";
+import Button from './button.jsx'
+import Input from './input.jsx'
+import Select from './Select.jsx'
 
 
 export {
@@ -20,5 +23,8 @@ export {
      Login,
      SignUp,
      PostForm,
-     PostCard
+     PostCard,
+     Button,
+     Input,
+     Select
 };
