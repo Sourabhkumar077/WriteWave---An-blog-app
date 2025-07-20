@@ -6,7 +6,7 @@ import LogoutBtn from "./header/LogoutBtn";
 import RTE from "./RTE";
 import Login from "./Login";
 import SignUp from "./SignUp";
-import PostForm from "./PostForm/PostForm";
+import PostForm from "./postForm/PostForm";
 import PostCard from "./PostCard";
 import Button from './button.jsx'
 import Input from './input.jsx'
