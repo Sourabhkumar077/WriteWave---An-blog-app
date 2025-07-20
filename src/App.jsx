@@ -4,6 +4,7 @@ import authService from './appwrite/auth';
 import { login, logout } from './store/authSlice';
 import { Outlet } from 'react-router-dom';
 import { Header, Footer } from './components/index';
+import EnvDebug from './components/EnvDebug';
 import './App.css';
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
         </main>
         <Footer />
       </div>
+      {/* Remove this component in production */}
+      <EnvDebug />
     </div>
   ) : (
     <h1>Loading...</h1>
