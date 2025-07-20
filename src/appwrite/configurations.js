@@ -25,7 +25,7 @@ class Service {
                 config.appwriteCollectionId,
                 slug,
                 {
-                    Title, 
+                    title: Title, 
                     content,
                     featuredimage, 
                     userId,
@@ -34,17 +34,18 @@ class Service {
             );
         } catch (error) {
             console.log("appwriter service :: CreatePost :: Error ", error);
+            throw error;
         }
     }
 
-    async updatePost(slug, { Title, content, featuredimage, status }) {
+    async updatePost(slug, { title, content, featuredimage, status }) {
         try {
             return await this.databases.updateDocument(
                 config.appwriteDatabaseId,
                 config.appwriteCollectionId,
                 slug,
                 {
-                    Title,
+                    title,
                     content,
                     featuredimage,
                     status
@@ -52,16 +53,18 @@ class Service {
             );
         } catch (error) {
             console.log("appwrite service :: updatePost :: Error ", error);
+            throw error;
         }
     }
 
     async deletePost(slug) {
         try {
-            return await this.databases.deleteDocument(
+            await this.databases.deleteDocument(
                 config.appwriteDatabaseId,
                 config.appwriteCollectionId,
                 slug
             );
+            return true;
         } catch (error) {
             console.log("appwriter service :: Delete :: error", error);
             return false;
@@ -77,7 +80,7 @@ class Service {
             );
         } catch (error) {
             console.log("appwriter service :: GetPost:: Error ", error);
-            return false;
+            throw error;
         }
     }
 
@@ -90,7 +93,7 @@ class Service {
             );
         } catch (error) {
             console.log("appwriter service :: GetPosts:: Error ", error);
-            return false;
+            return { documents: [] };
         }
     }
 
@@ -105,13 +108,14 @@ class Service {
             );
         } catch (error) {
             console.log("appwriter service :: uploadFile:: Error ", error);
-            return false;
+            throw error;
         }
     }
 
     async deleteFile(fileId) {
         try {
-            return this.bucket.deleteFile(config.appwriteBucketId, fileId);
+            await this.bucket.deleteFile(config.appwriteBucketId, fileId);
+            return true;
         } catch (err) {
             console.log("appwriter service :: Delete File:: Error ", err);
             return false;
@@ -123,7 +127,7 @@ class Service {
             return this.bucket.getFileView(config.appwriteBucketId, fileId);
         } catch (error) {
             console.log("appwriter service :: GetFilePreview:: Error ", error);
-            return false;
+            return null;
         }
     }
 }

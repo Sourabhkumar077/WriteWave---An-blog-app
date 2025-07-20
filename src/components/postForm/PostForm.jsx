@@ -9,7 +9,7 @@ function PostForm({ post }) {
   const { register, handleSubmit, watch, getValues, setValue, control } =
     useForm({
       defaultValues: {
-        Title: post?.Title || "",
+        Title: post?.title || "",
         slug: post?.slug || "",
         content: post?.content || "",
         status: post?.status || "active",
@@ -24,7 +24,7 @@ function PostForm({ post }) {
     setFormError("");
     const imageFiles = getValues("image");
     if (
-      !data.Title ||
+      !data.title ||
       !data.slug ||
       !data.content ||
       !userData?.$id ||
@@ -47,7 +47,7 @@ function PostForm({ post }) {
           appwriteService.deleteFile(post.featuredimage);
         }
         const dbPost = await appwriteService.updatePost(post.$id, {
-          Title: data.Title,
+          title: data.title,
           content: data.content,
           featuredimage: file ? file.$id : post.featuredimage,
           status: data.status,
@@ -71,7 +71,7 @@ function PostForm({ post }) {
         }
         const fileId = file.$id;
         const dbPost = await appwriteService.createPost({
-          Title: data.Title,
+          title: data.title,
           slug: data.slug,
           content: data.content,
           featuredimage: fileId,
@@ -103,8 +103,8 @@ function PostForm({ post }) {
 
   React.useEffect(() => {
     const subscription = watch((value, { name }) => {
-      if (name === "Title") {
-        setValue("slug", slugTransform(value.Title), { shouldValidate: true });
+      if (name === "title") {
+        setValue("slug", slugTransform(value.title), { shouldValidate: true });
       }
     });
     return () => subscription.unsubscribe();
@@ -122,7 +122,7 @@ function PostForm({ post }) {
           label="Title :"
           placeholder="Title"
           className="mb-4"
-          {...register("Title", { required: true })}
+          {...register("title", { required: true })}
         />
         <Input
           label="Slug :"
@@ -154,7 +154,7 @@ function PostForm({ post }) {
           <div className="w-full mb-4">
             <img
               src={appwriteService.getFilePreview(post.featuredimage)}
-              alt={post.Title}
+              alt={post.title}
               className="rounded-lg"
             />
           </div>
