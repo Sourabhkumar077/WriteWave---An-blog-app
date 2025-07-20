@@ -9,9 +9,9 @@ function Footer() {
         <div className="flex flex-wrap gap-8 justify-between">
           <div className="w-full md:w-1/2 lg:w-5/12 mb-8 md:mb-0 flex flex-col justify-between">
             <div className="mb-4 flex items-center">
-              <Logo width="100px" />
+              <Logo width="50px" />
             </div>
-            <p className="text-sm text-gray-400">&copy; {new Date().getFullYear()} Mega Blog. All Rights Reserved.</p>
+            <p className="text-sm text-gray-400">&copy; {new Date().getFullYear()} Write Wave. All Rights Reserved.</p>
           </div>
           <div className="w-full sm:w-1/2 md:w-1/4 lg:w-2/12 mb-8 md:mb-0">
             <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-400">Company</h3>
