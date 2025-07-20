@@ -18,14 +18,20 @@ class Service {
         }
     }
 
-    async createPost({ Title, slug, content, featuredimage, status, userId }) {
+    async createPost({ title, slug, content, featuredimage, status, userId }) {
         try {
+            console.log("Creating post with data:", { title, slug, content, featuredimage, status, userId });
+            
+            if (!this.databases) {
+                throw new Error("Database service not initialized. Check your environment variables.");
+            }
+            
             return await this.databases.createDocument(
                 config.appwriteDatabaseId,
                 config.appwriteCollectionId,
                 slug,
                 {
-                    title: Title, 
+                    title,
                     content,
                     featuredimage, 
                     userId,
@@ -33,13 +39,24 @@ class Service {
                 }
             );
         } catch (error) {
-            console.log("appwriter service :: CreatePost :: Error ", error);
+            console.error("Appwrite service :: CreatePost :: Error:", error);
+            console.error("Error details:", {
+                message: error.message,
+                code: error.code,
+                type: error.type
+            });
             throw error;
         }
     }
 
     async updatePost(slug, { title, content, featuredimage, status }) {
         try {
+            console.log("Updating post with data:", { slug, title, content, featuredimage, status });
+            
+            if (!this.databases) {
+                throw new Error("Database service not initialized. Check your environment variables.");
+            }
+            
             return await this.databases.updateDocument(
                 config.appwriteDatabaseId,
                 config.appwriteCollectionId,
@@ -52,7 +69,12 @@ class Service {
                 }
             );
         } catch (error) {
-            console.log("appwrite service :: updatePost :: Error ", error);
+            console.error("Appwrite service :: updatePost :: Error:", error);
+            console.error("Error details:", {
+                message: error.message,
+                code: error.code,
+                type: error.type
+            });
             throw error;
         }
     }
@@ -101,13 +123,24 @@ class Service {
 
     async uploadFile(file) {
         try {
+            console.log("Uploading file:", { name: file.name, size: file.size, type: file.type });
+            
+            if (!this.bucket) {
+                throw new Error("Storage service not initialized. Check your environment variables.");
+            }
+            
             return await this.bucket.createFile(
                 config.appwriteBucketId,
                 ID.unique(),
                 file
             );
         } catch (error) {
-            console.log("appwriter service :: uploadFile:: Error ", error);
+            console.error("Appwrite service :: uploadFile :: Error:", error);
+            console.error("Error details:", {
+                message: error.message,
+                code: error.code,
+                type: error.type
+            });
             throw error;
         }
     }
